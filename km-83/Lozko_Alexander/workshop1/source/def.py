@@ -5,3 +5,6 @@ def slist(a,b,c):
     list.append(c)
     print(list)
 
+def sum(a,b):
+    s = a+b
+    print(s)
