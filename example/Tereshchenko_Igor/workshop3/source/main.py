@@ -44,3 +44,4 @@ def cn(dataset, list_keys, newdataset):
             newdataset[el] = [key]
             print(newdataset)
 print(cn(dataset, list_keys, newdataset))
+#не полностью
