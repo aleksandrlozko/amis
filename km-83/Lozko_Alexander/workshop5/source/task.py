@@ -15,12 +15,20 @@
 # Якого товару, скільки покупців купляє? (графік)
 
 # Написати функціонал для додавання нових даних
+def add():
+    name = input("Введите имя:")
+    data = input("Введите дату:")
+    product = input("Введите продукт:")
+    quan = input("Введите количество:")
+    price = input("Введите цену:")
+    f.write(name + "," + data + "," + product + "," + quan + "," + price)
 import plotly
 import plotly.graph_objs as go
 
-file = open('data/orders.csv')
+file = open('data/orders.csv', 'r+')
 
 with file as f:
+    add()
 #==========create dict==================
     header = f.readline()
     header = header.rstrip().split(",")
@@ -29,6 +37,7 @@ with file as f:
     product = []
     prices = []
     final_price = []
+    quantity1 = []
     while line:
         lines = line.rstrip().split(",")
         dict_main = dict(zip(header, lines))
@@ -38,6 +47,7 @@ with file as f:
         product_f = dict_main[' product']
         price = dict_main[' price']
         quantity = dict_main[' quantity']
+        quantity1.append(quantity)
         final_pr = float(quantity) * float(price)
         final_price.append(final_pr)
         product.append(product_f)
@@ -53,6 +63,7 @@ with file as f:
     max_of = max(prices)
     print(max_of)
 
-    trace = go.Pie(labels = names, values = quantity)
+    trace = go.Pie(labels = names, values = quantity1)
     plotly.offline.plot([trace], filename = 'pie.html')
+
 
