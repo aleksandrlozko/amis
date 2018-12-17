@@ -49,8 +49,10 @@ with file as f:
         y = final_price
     )]
     plotly.offline.plot(data, filename="bar.html")
+
     max_of = max(prices)
     print(max_of)
+
     trace = go.Pie(labels = names, values = prices)
     plotly.offline.plot([trace], filename = 'pie.html')
 
