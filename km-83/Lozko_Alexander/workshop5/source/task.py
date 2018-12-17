@@ -53,6 +53,6 @@ with file as f:
     max_of = max(prices)
     print(max_of)
 
-    trace = go.Pie(labels = names, values = prices)
+    trace = go.Pie(labels = names, values = quantity)
     plotly.offline.plot([trace], filename = 'pie.html')
 
