@@ -2,13 +2,19 @@ import re
 import plotly
 import plotly.graph_objs as go
 from plotly import tools
+
 def getName(app):
     result = re.split(r'"\w+', app, maxsplit=1)
+def getInstalls(installs):
+    result = re.split(r'""\d\,\d\,\d', installs)
+    print(result)
+
 list_of_category = []
 list_of_app = []
 list_of_count = []
 list_of_rating = []
 list_of_size = []
+
 with open('data/googleplaydata.csv', encoding = 'utf-8') as f:
     header = f.readline()
     dataset = dict()
@@ -18,11 +24,14 @@ with open('data/googleplaydata.csv', encoding = 'utf-8') as f:
         category = columns[1]
         rating = columns[2]
         size = columns[4]
+        installs = columns[5]
+
         list_of_category.append(category)
         list_of_count.append(list_of_category.count(category))
         list_of_rating.append(rating)
         list_of_app.append(app)
         list_of_size.append(size)
+
         if category not in dataset:
             dataset[category] = dict()
         if app not in dataset[category]:
@@ -31,7 +40,7 @@ with open('data/googleplaydata.csv', encoding = 'utf-8') as f:
             dataset[category][app]['size'] = size
         if rating not in dataset[category][app]:
             dataset[category][app]['rating'] = rating
-
+        getInstalls(installs)
     bar_of_count = go.Bar(
         x = list_of_category,
         y = list_of_count,
