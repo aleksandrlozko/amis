@@ -1,13 +1,18 @@
 import re
-import plotly
-import plotly.graph_objs as go
-from plotly import tools
+
+# import plotly.graph_objs as go
+#from plotly import tools
 
 def getName(app):
     result = re.split(r'"\w+', app, maxsplit=1)
-def getInstalls(installs):
-    result = re.split(r'""\d\,\d\,\d', installs)
+'''def getInstalls(installs):
+    result = re.split(r'""\d\,\d\,\d', )
+    print(result)'''
+def getInstalls(line):
+    result = re.split(r'\"', line)[1]
     print(result)
+
+
 
 list_of_category = []
 list_of_app = []
@@ -19,7 +24,8 @@ with open('data/googleplaydata.csv', encoding = 'utf-8') as f:
     header = f.readline()
     dataset = dict()
     for line in f:
-        columns = line.strip().replace('"','').split(",")
+        columns = line.strip().split(",")
+        getInstalls(line)
         app = columns[0]
         category = columns[1]
         rating = columns[2]
@@ -40,28 +46,27 @@ with open('data/googleplaydata.csv', encoding = 'utf-8') as f:
             dataset[category][app]['size'] = size
         if rating not in dataset[category][app]:
             dataset[category][app]['rating'] = rating
-        getInstalls(installs)
-    bar_of_count = go.Bar(
-        x = list_of_category,
-        y = list_of_count,
-        name = 'Category and their count'
-    )
-    bar_of_rating = go.Bar(
-        x = list_of_category,
-        y = list_of_rating,
-        name = 'Category and their rating'
-    )
-    '''pie = go.Pie(
-       labels = list_of_app,
-        values = list_of_size,
-        name = 'App and their size '
-    )'''
+    #bar_of_count = go.Bar(
+     #   x = list_of_category,
+     #   y = list_of_count,
+     #   name = 'Category and their count'
+    #)
+    #bar_of_rating = go.Bar(
+     #   x = list_of_category,
+     #   y = list_of_rating,
+     #   name = 'Category and their rating'
+    #)
+    #pie = go.Pie(
+     #  labels = list_of_app,
+     #   values = list_of_size,
+     #   name = 'App and their size '
+    #)
 
 
-    fig = tools.make_subplots(rows=3, cols=3)
+    #fig = tools.make_subplots(rows=3, cols=3)
 
-    fig.append_trace(bar_of_count,1,1)
-    fig.append_trace(bar_of_rating,1,2)
-    '''fig.append_trace(pie,1,3)'''
+    #fig.append_trace(bar_of_count,1,1)
+    #fig.append_trace(bar_of_rating,1,2)
+    #fig.append_trace(pie,1,3)
 
-    plotly.offline.plot(fig, filename='plotly.html')
+    #plotly.offline.plot(fig, filename='plotly.html')
